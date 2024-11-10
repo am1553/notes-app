@@ -26,7 +26,7 @@ function Sidebar() {
     "TypeScript",
   ];
   return (
-    <aside className="border-r py-3 px-4 max-lg:hidden">
+    <aside className="border-r py-3 px-4 max-lg:hidden h-screen flex flex-col row-span-2">
       <div className="py-3 mb-4">
         <Logo />
       </div>
@@ -43,7 +43,7 @@ function Sidebar() {
       </nav>
       <hr className="my-2" />
       <span className="text-neutral-500">Tags</span>
-      <ul className="flex flex-col gap-1">
+      <ul className="flex flex-col gap-1 overflow-y-auto">
         {tags.map((tag) => (
           <Link
             href={"/app"}

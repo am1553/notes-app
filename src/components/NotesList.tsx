@@ -5,7 +5,7 @@ import NoteItem from "./NoteItem";
 function NotesList() {
   const notes = data.notes.map((note) => ({ ...note, id: uuidv4() }));
   return (
-    <ul className="h-full overflow-y-auto">
+    <ul className="">
       {notes.map((note, i) => (
         <li key={note.id}>
           <NoteItem note={note} />

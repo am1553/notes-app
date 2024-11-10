@@ -1,4 +1,5 @@
 import moment from "moment";
+import Link from "next/link";
 import React from "react";
 
 type NoteType = {
@@ -14,7 +15,9 @@ function NoteItem({ note }: { note: NoteType }) {
   const fdate = moment(note.lastEdited).format("DD MMM YYYY");
   return (
     <div className="flex flex-col gap-3 p-2">
-      <h3 className="text-preset-3 font-semibold">{note.title}</h3>
+      <Link href={`/app/${note.id}`}>
+        <h3 className="text-preset-3 font-semibold">{note.title}</h3>
+      </Link>
       <div className="flex items-center gap-1">
         {note.tags.map((tag) => (
           <label
