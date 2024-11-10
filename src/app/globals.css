@@ -2,20 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  .font-pacifico {
+    font-family: var(--font-pacifico);
   }
-}
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  .active-icon {
+    @apply filter;
+    filter: brightness(0) saturate(100%) invert(24%) sepia(69%) saturate(3794%)
+      hue-rotate(228deg) brightness(108%) contrast(101%);
+  }
+
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
 }
