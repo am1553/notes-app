@@ -26,7 +26,7 @@ function Sidebar() {
     "TypeScript",
   ];
   return (
-    <aside className="border-r py-3 px-4">
+    <aside className="border-r py-3 px-4 max-lg:hidden">
       <div className="py-3 mb-4">
         <Logo />
       </div>
