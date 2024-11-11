@@ -17,10 +17,29 @@ function SecondarySidebar() {
 
 function AllNotesLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="lg:grid lg:grid-cols-[290px_1fr_290px] h-full">
+    <div className="lg:grid lg:grid-cols-[290px_1fr_290px] h-full flex flex-col">
       <SecondarySidebar />
       {children}
-      <div className=""></div>
+      <div className="flex flex-col gap-2 border-l px-4 py-5 max-lg:hidden">
+        <Button variant={"secondary"} className="justify-start">
+          <Image
+            src={"/icon-archive.svg"}
+            height={18}
+            width={18}
+            alt="archive"
+          />
+          <span>Archive Note</span>
+        </Button>
+        <Button variant={"secondary"} className="justify-start">
+          <Image
+            src={"/icon-archive.svg"}
+            height={18}
+            width={18}
+            alt="archive"
+          />
+          <span>Delete Note</span>
+        </Button>
+      </div>
     </div>
   );
 }

@@ -34,7 +34,7 @@ const ROUTES = [
 ];
 function MenuBar() {
   return (
-    <nav className="flex justify-evenly px-4 md:px-8 py-3 lg:hidden border-t bg-white">
+    <nav className="flex justify-evenly px-4 md:px-8 h-14 md:h-20 items-center lg:hidden border-t bg-white">
       {ROUTES.map((route, i) => {
         return (
           <div key={route.name} className="w-full flex justify-around">

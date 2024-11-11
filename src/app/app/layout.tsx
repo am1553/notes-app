@@ -10,7 +10,7 @@ function AppLayout({ children }: Readonly<{ children: React.ReactNode }>) {
       <Sidebar />
       <MobileHeader />
       <DesktopHeader />
-      <section className="lg:col-start-2 lg:row-start-2 overflow-hidden max-lg:overflow-y-auto">
+      <section className="lg:col-start-2 lg:row-start-2 overflow-hidden max-lg:overflow-y-auto h-full max-h-[calc(100vh-7rem)] md:max-h-[calc(100vh-10rem)] lg:max-h-[calc(100vh-5rem)]">
         {children}
       </section>
       <MenuBar />
