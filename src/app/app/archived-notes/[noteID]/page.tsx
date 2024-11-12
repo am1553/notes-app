@@ -1,5 +1,4 @@
-import { Panel } from "@/components/layout";
-import PanelHeader from "@/components/layout/PanelHeader";
+import { Panel, PanelHeader } from "@/components/layout";
 import NoteOverview from "@/components/NoteOverview";
 import { Button } from "@/components/ui/button";
 import React from "react";
@@ -9,7 +8,7 @@ function NotePage() {
     <Panel>
       <PanelHeader />
       <hr className="lg:hidden" />
-      <NoteOverview showLastEdited showTags />
+      <NoteOverview showLastEdited showStatus showTags />
       <hr />
       <textarea
         className="flex-1 outline-none"

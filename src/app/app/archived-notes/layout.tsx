@@ -9,7 +9,8 @@ import Image from "next/image";
 import React from "react";
 import data from "@/data.json";
 import NoteItem from "@/components/NoteItem";
-function AllNotesLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+
+function ArchiveLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const { notes } = data;
   return (
     <SectionLayout>
@@ -22,11 +23,15 @@ function AllNotesLayout({ children }: Readonly<{ children: React.ReactNode }>) {
             icon: "/icon-plus.svg",
             alt: "add",
           }}
+          description="All your archived notes are stored here. You can restore or delete
+          them anytime."
         >
           {notes.map((note: Note, i: number) => (
             <li key={i}>
               <NoteItem
-                path={note.title.toLowerCase().replaceAll(" ", "-")}
+                path={`archived-notes/${note.title
+                  .toLowerCase()
+                  .replaceAll(" ", "-")}`}
                 note={note}
               />
               {i < notes.length - 1 ? <hr className="my-1" /> : null}
@@ -38,16 +43,16 @@ function AllNotesLayout({ children }: Readonly<{ children: React.ReactNode }>) {
       <SectionActionBar>
         <Button variant={"secondary"} className="justify-start">
           <Image
-            src={"/icon-archive.svg"}
+            src={"/icon-restore.svg"}
             height={18}
             width={18}
             alt="archive"
           />
-          <span>Archive Note</span>
+          <span>Restore Note</span>
         </Button>
         <Button variant={"secondary"} className="justify-start">
           <Image
-            src={"/icon-archive.svg"}
+            src={"/icon-delete.svg"}
             height={18}
             width={18}
             alt="archive"
@@ -59,4 +64,4 @@ function AllNotesLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   );
 }
 
-export default AllNotesLayout;
+export default ArchiveLayout;

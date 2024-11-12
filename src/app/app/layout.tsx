@@ -1,7 +1,5 @@
-import DesktopHeader from "@/components/DesktopHeader";
-import MenuBar from "@/components/MenuBar";
-import MobileHeader from "@/components/MobileHeader";
-import Sidebar from "@/components/Sidebar";
+import { DesktopHeader, MenuBar, MobileHeader } from "@/components/layout";
+import Sidebar from "@/components/layout/Sidebar";
 import React from "react";
 
 function AppLayout({ children }: Readonly<{ children: React.ReactNode }>) {

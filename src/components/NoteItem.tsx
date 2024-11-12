@@ -2,20 +2,11 @@ import moment from "moment";
 import Link from "next/link";
 import React from "react";
 
-type NoteType = {
-  id: string;
-  title: string;
-  tags: string[];
-  content: string;
-  lastEdited: string;
-  isArchived: boolean;
-};
-
-function NoteItem({ note }: { note: NoteType }) {
+function NoteItem({ note, path }: { note: Note; path: string }) {
   const fdate = moment(note.lastEdited).format("DD MMM YYYY");
   return (
     <div className="flex flex-col gap-3 p-2">
-      <Link href={`/app/${note.id}`}>
+      <Link href={`/app/${path}`}>
         <h3 className="text-preset-3 font-semibold">{note.title}</h3>
       </Link>
       <div className="flex items-center gap-1">

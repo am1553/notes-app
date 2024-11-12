@@ -1,11 +1,18 @@
+"use client";
 import Image from "next/image";
 import React from "react";
-import { Button } from "./ui/button";
+import { usePathname } from "next/navigation";
+import { Button } from "../ui/button";
 
 function DesktopHeader() {
+  const pathname = usePathname();
+  const current =
+    pathname.split("/")[2] === "archived-notes"
+      ? pathname.split("/")[2].replace("-", " ")
+      : "All Notes";
   return (
     <header className="flex items-center justify-between px-8 h-20 border-b max-lg:hidden col-start-2">
-      <h1 className="text-preset-1 font-bold">All Notes</h1>
+      <h1 className="text-preset-1 font-bold capitalize">{current}</h1>
 
       <div className="flex gap-4">
         <div className="relative h-fit w-fit">

@@ -1,13 +1,13 @@
 import React from "react";
-import Logo from "./Logo";
-import NavLink from "./NavLink";
+import Logo from "../Logo";
+import NavLink from "../NavLink";
 import Link from "next/link";
 import Image from "next/image";
 const ROUTES = [
   { name: "home", path: "/app", icon: "/icon-home.svg", label: "All Notes" },
   {
-    name: "archive",
-    path: "/app/archive",
+    name: "archived-notes",
+    path: "/app/archived-notes",
     icon: "/icon-archive.svg",
     label: "Archived Notes",
   },
