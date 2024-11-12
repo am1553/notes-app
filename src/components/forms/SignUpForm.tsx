@@ -15,6 +15,8 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import { authService } from "@/config/axios";
+import { redirect } from "next/navigation";
 const formSchema = z.object({
   email: z
     .string()
@@ -25,9 +27,12 @@ const formSchema = z.object({
     .string()
     .min(8, { message: "Password should be atleast 8 characters." })
     .max(50, { message: "Password cannot exceed 50 characters" }),
+  firstName: z.string().min(2),
+  lastName: z.string().min(2),
 });
 
 function SignUpForm() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const passwordRef = useRef<HTMLInputElement>(null);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -35,11 +40,24 @@ function SignUpForm() {
     defaultValues: {
       email: "",
       password: "",
+      firstName: "",
+      lastName: "",
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
+      setIsLoading(true);
+      await authService.post("/users", data).then((res) => {
+        localStorage.setItem("token", JSON.stringify(res.data.token));
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        setIsLoading(false);
+        redirect("/app");
+      });
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+    }
   };
 
   const togglePasswordVis = () => setShowPassword((prev) => !prev);
@@ -62,6 +80,32 @@ function SignUpForm() {
         >
           <FormField
             control={form.control}
+            name="firstName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>First Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="John" {...field}></Input>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          ></FormField>
+          <FormField
+            control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Last Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="John" {...field}></Input>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          ></FormField>
+          <FormField
+            control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
@@ -72,7 +116,7 @@ function SignUpForm() {
                 <FormMessage />
               </FormItem>
             )}
-          ></FormField>
+          />
           <FormField
             control={form.control}
             name="password"
@@ -109,7 +153,7 @@ function SignUpForm() {
                 <FormMessage />
               </FormItem>
             )}
-          ></FormField>
+          />
           <Button type="submit" className="w-full">
             Sign Up
           </Button>

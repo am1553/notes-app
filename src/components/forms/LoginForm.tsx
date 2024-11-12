@@ -15,7 +15,9 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import Link from "next/link";
-
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import authService from "@/config/axiosAuth.config";
 const formSchema = z.object({
   email: z
     .string()
@@ -30,17 +32,25 @@ const formSchema = z.object({
 
 function LoginForm() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
+  const router = useRouter();
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
+      await authService.post("/sign-in", data).then((res) => {
+        const { token, user, noteID } = res.data;
+        Cookies.set("accessToken", token.access);
+        localStorage.setItem("user", JSON.stringify(user));
+        if (window.innerWidth < 1024) {
+          router.push(`/app`);
+        } else {
+          router.push(`/app/${noteID}`);
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const togglePasswordVis = () => setShowPassword((prev) => !prev);
@@ -53,6 +63,14 @@ function LoginForm() {
       passwordRef.current.type = "password";
     }
   }, [showPassword]);
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   return (
     <div className="flex flex-col gap-4">
@@ -112,7 +130,7 @@ function LoginForm() {
             )}
           ></FormField>
           <Button type="submit" className="w-full">
-            Login
+            {isLoading ? <span>...</span> : <span>Login</span>}
           </Button>
         </form>
       </Form>
